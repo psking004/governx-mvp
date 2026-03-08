@@ -9,7 +9,7 @@ import { Feature } from '@/lib/governance';
 import { GovernanceAdvisor } from '@/components/dashboard/GovernanceAdvisor';
 import { MvpCoachReport } from '@/components/dashboard/MvpCoachReport';
 import { MvpTimelineEstimator } from '@/components/dashboard/MvpTimelineEstimator';
-import { ArrowLeft, Trash2, RefreshCw, Plus } from 'lucide-react';
+import { ArrowLeft, Trash2, RefreshCw, Plus, Users, Activity, TrendingUp, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
 import { calculateCycleScore, calculateScopeScore } from '@/lib/governance';
 
