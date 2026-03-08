@@ -29,7 +29,7 @@ const iconVariants = {
 
 export function MetricCard({ label, value, subtitle, icon: Icon, trend, variant = 'default' }: MetricCardProps) {
   return (
-    <div className={cn('glass-card p-5 space-y-3', variantStyles[variant])}>
+    <div className={cn('glass-card p-4 sm:p-5 space-y-2 sm:space-y-3', variantStyles[variant])}>
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{label}</span>
         <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center', iconVariants[variant])}>
