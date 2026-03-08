@@ -1,0 +1,4 @@
+project_id = "eihrsrrgcunwohyjdbfe"
+
+[functions.governance-advisor]
+verify_jwt = false

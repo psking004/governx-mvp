@@ -6,6 +6,7 @@ import { StatusBadge } from '@/components/dashboard/StatusBadge';
 import { ScopeChart } from '@/components/dashboard/ScopeChart';
 import { TrendChart } from '@/components/dashboard/TrendChart';
 import { Feature } from '@/lib/governance';
+import { GovernanceAdvisor } from '@/components/dashboard/GovernanceAdvisor';
 import { ArrowLeft, Trash2, RefreshCw, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { calculateCycleScore, calculateScopeScore } from '@/lib/governance';
@@ -167,6 +168,14 @@ export default function InitiativeDetail() {
           {/* Scope visualization */}
           <ScopeChart features={features} />
         </div>
+
+        {/* AI Governance Advisor */}
+        <GovernanceAdvisor
+          initiative={initiative}
+          evaluation={latestEval}
+          cycleDays={cycle.days}
+          scopeTrimPercentage={scope.percentage}
+        />
 
         {/* Trend */}
         <TrendChart evaluations={evals} />
