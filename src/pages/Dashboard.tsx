@@ -6,6 +6,7 @@ import { TrendChart } from '@/components/dashboard/TrendChart';
 import { ScopeChart } from '@/components/dashboard/ScopeChart';
 import { HealthScoreRing } from '@/components/dashboard/HealthScoreRing';
 import { useInitiativeStore } from '@/stores/initiativeStore';
+import { PortfolioAnalysis } from '@/components/dashboard/PortfolioAnalysis';
 import { useAuthStore } from '@/stores/authStore';
 import { FolderKanban, Activity, AlertTriangle, Rocket } from 'lucide-react';
 
