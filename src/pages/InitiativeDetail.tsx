@@ -187,6 +187,14 @@ export default function InitiativeDetail() {
           scopeTrimPercentage={scope.percentage}
         />
 
+        {/* AI Timeline Estimator */}
+        <MvpTimelineEstimator
+          initiative={initiative}
+          evaluation={latestEval}
+          cycleDays={cycle.days}
+          mustHaveCount={features.filter(f => f.category === 'must_have').length}
+        />
+
         {/* Trend */}
         <TrendChart evaluations={evals} />
       </div>
