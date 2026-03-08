@@ -77,6 +77,9 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* AI Portfolio Analysis */}
+        <PortfolioAnalysis initiatives={initiatives} evaluations={evaluations} />
+
         {/* Trend chart */}
         <TrendChart evaluations={evaluations} />
       </div>

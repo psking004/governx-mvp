@@ -178,6 +178,14 @@ export default function InitiativeDetail() {
           scopeTrimPercentage={scope.percentage}
         />
 
+        {/* AI MVP Coach */}
+        <MvpCoachReport
+          initiative={initiative}
+          evaluation={latestEval}
+          cycleDays={cycle.days}
+          scopeTrimPercentage={scope.percentage}
+        />
+
         {/* Trend */}
         <TrendChart evaluations={evals} />
       </div>

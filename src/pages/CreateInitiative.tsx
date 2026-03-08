@@ -118,6 +118,11 @@ export default function CreateInitiative() {
             Create & Evaluate Initiative
           </button>
         </form>
+
+        {/* AI Design Assistant */}
+        {form.name && form.description && (
+          <MvpDesignAssistant name={form.name} description={form.description} />
+        )}
       </div>
     </AppLayout>
   );

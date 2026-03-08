@@ -2,3 +2,6 @@ project_id = "eihrsrrgcunwohyjdbfe"
 
 [functions.governance-advisor]
 verify_jwt = false
+
+[functions.mvp-coach]
+verify_jwt = false
