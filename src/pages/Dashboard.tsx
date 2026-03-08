@@ -2,9 +2,11 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import { MetricCard } from '@/components/dashboard/MetricCard';
 import { InitiativeCard } from '@/components/dashboard/InitiativeCard';
 import { RiskAlerts } from '@/components/dashboard/RiskAlerts';
-import { TrendChart } from '@/components/dashboard/TrendChart';
 import { ScopeChart } from '@/components/dashboard/ScopeChart';
 import { HealthScoreRing } from '@/components/dashboard/HealthScoreRing';
+import { GovernanceTrendChart } from '@/components/dashboard/GovernanceTrendChart';
+import { GovernanceInsightPanel } from '@/components/dashboard/GovernanceInsightPanel';
+import { ActivityFeed } from '@/components/dashboard/ActivityFeed';
 import { useInitiativeStore } from '@/stores/initiativeStore';
 import { PortfolioAnalysis } from '@/components/dashboard/PortfolioAnalysis';
 import { useAuthStore } from '@/stores/authStore';
@@ -14,7 +16,6 @@ export default function Dashboard() {
   const { user } = useAuthStore();
   const { initiatives, evaluations, features } = useInitiativeStore();
 
-  // Latest evaluation per initiative
   const latestEvals = initiatives.map(init => {
     const evals = evaluations.filter(e => e.initiative_id === init.id);
     return { initiative: init, evaluation: evals[evals.length - 1] };
@@ -32,26 +33,29 @@ export default function Dashboard() {
       <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">
             Welcome back, <span className="text-gradient">{user?.name || 'User'}</span>
           </h1>
           <p className="text-sm text-muted-foreground mt-1">Your governance portfolio overview</p>
         </div>
 
         {/* Metrics row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <MetricCard label="Initiatives" value={initiatives.length} icon={FolderKanban} variant="seafoam" />
           <MetricCard label="Avg Health" value={avgHealth} subtitle="out of 100" icon={Activity} variant="blue" />
           <MetricCard label="Active Risks" value={totalRisks} icon={AlertTriangle} variant={totalRisks > 0 ? 'amber' : 'default'} />
           <MetricCard label="MVP Ready" value={readyCount} subtitle={`of ${initiatives.length}`} icon={Rocket} variant="seafoam" />
         </div>
 
+        {/* Governance Trend Chart - full width */}
+        <GovernanceTrendChart initiatives={initiatives} evaluations={evaluations} />
+
         {/* Main grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: initiatives */}
           <div className="lg:col-span-2 space-y-4">
             <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Initiative Portfolio</h2>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
               {latestEvals.map(({ initiative, evaluation }) => (
                 <InitiativeCard key={initiative.id} initiative={initiative} evaluation={evaluation} />
               ))}
@@ -59,7 +63,7 @@ export default function Dashboard() {
           </div>
 
           {/* Right sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Portfolio health ring */}
             <div className="glass-card p-5 flex flex-col items-center">
               <h3 className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4">Portfolio Health</h3>
@@ -72,6 +76,12 @@ export default function Dashboard() {
               <RiskAlerts evaluations={latestEvals.map(x => x.evaluation)} />
             </div>
 
+            {/* AI Governance Insight */}
+            <GovernanceInsightPanel initiatives={initiatives} evaluations={evaluations} />
+
+            {/* Recent Activity */}
+            <ActivityFeed initiatives={initiatives} evaluations={evaluations} />
+
             {/* Scope chart */}
             <ScopeChart features={features} />
           </div>
@@ -79,9 +89,6 @@ export default function Dashboard() {
 
         {/* AI Portfolio Analysis */}
         <PortfolioAnalysis initiatives={initiatives} evaluations={evaluations} />
-
-        {/* Trend chart */}
-        <TrendChart evaluations={evaluations} />
       </div>
     </AppLayout>
   );
