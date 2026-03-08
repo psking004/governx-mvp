@@ -124,6 +124,47 @@ export default function InitiativeDetail() {
           </div>
         </div>
 
+        {/* Validation Evidence Metrics */}
+        {initiative.validation_metrics && (
+          <div className="glass-card p-5">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4">Validation Evidence Breakdown</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1">
+                  <Users className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-[10px] text-muted-foreground uppercase">Beta Users</span>
+                </div>
+                <p className="text-lg font-bold text-foreground">{initiative.validation_metrics.beta_users}</p>
+                <p className="text-[10px] text-muted-foreground">Weight: 20%</p>
+              </div>
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1">
+                  <Activity className="w-3.5 h-3.5 text-accent" />
+                  <span className="text-[10px] text-muted-foreground uppercase">Weekly Active</span>
+                </div>
+                <p className="text-lg font-bold text-foreground">{initiative.validation_metrics.weekly_active_users}</p>
+                <p className="text-[10px] text-muted-foreground">Weight: 25%</p>
+              </div>
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1">
+                  <TrendingUp className="w-3.5 h-3.5 text-governx-amber" />
+                  <span className="text-[10px] text-muted-foreground uppercase">Retention</span>
+                </div>
+                <p className="text-lg font-bold text-foreground">{initiative.validation_metrics.user_retention_rate}%</p>
+                <p className="text-[10px] text-muted-foreground">Weight: 30%</p>
+              </div>
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1">
+                  <ThumbsUp className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-[10px] text-muted-foreground uppercase">Positive Feedback</span>
+                </div>
+                <p className="text-lg font-bold text-foreground">{initiative.validation_metrics.positive_feedback_percentage}%</p>
+                <p className="text-[10px] text-muted-foreground">Weight: 25%</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Features (MoSCoW) */}
           <div className="glass-card p-5">
