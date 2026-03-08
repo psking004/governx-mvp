@@ -169,6 +169,14 @@ export default function InitiativeDetail() {
           <ScopeChart features={features} />
         </div>
 
+        {/* AI Governance Advisor */}
+        <GovernanceAdvisor
+          initiative={initiative}
+          evaluation={latestEval}
+          cycleDays={cycle.days}
+          scopeTrimPercentage={scope.percentage}
+        />
+
         {/* Trend */}
         <TrendChart evaluations={evals} />
       </div>
