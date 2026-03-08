@@ -55,7 +55,7 @@ export default function Dashboard() {
           {/* Left: initiatives */}
           <div className="lg:col-span-2 space-y-4">
             <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Initiative Portfolio</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+            <div className="space-y-3">
               {latestEvals.map(({ initiative, evaluation }) => (
                 <InitiativeCard key={initiative.id} initiative={initiative} evaluation={evaluation} />
               ))}
