@@ -53,7 +53,7 @@ export function MobileHeader() {
                   to={to}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    'flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-medium transition-colors',
+                    'flex items-center gap-3 px-4 py-4 rounded-xl text-sm font-medium transition-colors touch-target',
                     active
                       ? 'bg-primary/10 text-primary'
                       : 'text-foreground hover:bg-secondary'
