@@ -1,40 +1,50 @@
 import { create } from 'zustand';
-import { Initiative, Feature, Evaluation, evaluateInitiative } from '@/lib/governance';
+import { Initiative, Feature, Evaluation, evaluateInitiative, ValidationMetrics, calculateValidationScore } from '@/lib/governance';
 
 // Seed data
 const SEED_INITIATIVES: Initiative[] = [
   {
     id: '1', name: 'PayFlow Checkout', description: 'One-click checkout experience for mobile commerce',
     idea_created_at: '2026-01-10', first_release_at: '2026-02-05',
-    total_features_initial: 20, trimmed_features_count: 6, validation_score: 82,
+    total_features_initial: 20, trimmed_features_count: 6,
+    validation_metrics: { beta_users: 45, weekly_active_users: 85, user_retention_rate: 78, positive_feedback_percentage: 88 },
+    validation_score: 82,
     stability_verified: true, core_metric_threshold_met: true, scalability_path_defined: true,
     created_by: '1', created_at: '2026-01-10',
   },
   {
     id: '2', name: 'InsightHub Analytics', description: 'Real-time product analytics dashboard for SaaS teams',
     idea_created_at: '2025-11-01', first_release_at: '2026-02-15',
-    total_features_initial: 35, trimmed_features_count: 5, validation_score: 45,
+    total_features_initial: 35, trimmed_features_count: 5,
+    validation_metrics: { beta_users: 12, weekly_active_users: 20, user_retention_rate: 35, positive_feedback_percentage: 55 },
+    validation_score: 45,
     stability_verified: false, core_metric_threshold_met: false, scalability_path_defined: false,
     created_by: '1', created_at: '2025-11-01',
   },
   {
     id: '3', name: 'TaskForge PM', description: 'Lightweight project management tool for agile teams',
     idea_created_at: '2026-01-20', first_release_at: '2026-03-01',
-    total_features_initial: 15, trimmed_features_count: 4, validation_score: 68,
+    total_features_initial: 15, trimmed_features_count: 4,
+    validation_metrics: { beta_users: 30, weekly_active_users: 55, user_retention_rate: 62, positive_feedback_percentage: 72 },
+    validation_score: 68,
     stability_verified: true, core_metric_threshold_met: true, scalability_path_defined: false,
     created_by: '2', created_at: '2026-01-20',
   },
   {
     id: '4', name: 'CloudSync Storage', description: 'Distributed file storage with edge caching',
     idea_created_at: '2025-10-15', first_release_at: '2026-03-05',
-    total_features_initial: 28, trimmed_features_count: 3, validation_score: 55,
+    total_features_initial: 28, trimmed_features_count: 3,
+    validation_metrics: { beta_users: 20, weekly_active_users: 40, user_retention_rate: 50, positive_feedback_percentage: 60 },
+    validation_score: 55,
     stability_verified: false, core_metric_threshold_met: true, scalability_path_defined: true,
     created_by: '1', created_at: '2025-10-15',
   },
   {
     id: '5', name: 'DevBot Assistant', description: 'AI-powered code review and pair programming tool',
     idea_created_at: '2026-02-01', first_release_at: '2026-02-28',
-    total_features_initial: 12, trimmed_features_count: 3, validation_score: 90,
+    total_features_initial: 12, trimmed_features_count: 3,
+    validation_metrics: { beta_users: 50, weekly_active_users: 95, user_retention_rate: 85, positive_feedback_percentage: 92 },
+    validation_score: 90,
     stability_verified: true, core_metric_threshold_met: true, scalability_path_defined: true,
     created_by: '2', created_at: '2026-02-01',
   },
