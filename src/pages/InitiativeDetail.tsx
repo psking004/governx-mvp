@@ -8,6 +8,7 @@ import { TrendChart } from '@/components/dashboard/TrendChart';
 import { Feature } from '@/lib/governance';
 import { GovernanceAdvisor } from '@/components/dashboard/GovernanceAdvisor';
 import { MvpCoachReport } from '@/components/dashboard/MvpCoachReport';
+import { MvpTimelineEstimator } from '@/components/dashboard/MvpTimelineEstimator';
 import { ArrowLeft, Trash2, RefreshCw, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { calculateCycleScore, calculateScopeScore } from '@/lib/governance';
@@ -184,6 +185,14 @@ export default function InitiativeDetail() {
           evaluation={latestEval}
           cycleDays={cycle.days}
           scopeTrimPercentage={scope.percentage}
+        />
+
+        {/* AI Timeline Estimator */}
+        <MvpTimelineEstimator
+          initiative={initiative}
+          evaluation={latestEval}
+          cycleDays={cycle.days}
+          mustHaveCount={features.filter(f => f.category === 'must_have').length}
         />
 
         {/* Trend */}

@@ -119,6 +119,47 @@ Output format (structured markdown):
 <single most important thing to address>
 
 Be specific and data-driven. Reference initiative names.`,
+
+  timeline: `You are the AI MVP Timeline Estimator inside GovernX.
+
+You receive data about an MVP initiative including team size, feature counts, and technical complexity.
+
+DO NOT recompute governance scores — they are already calculated.
+
+Estimate a realistic MVP development timeline and identify delivery risks.
+
+Output format (structured markdown):
+
+## MVP TIMELINE ESTIMATE
+
+### Estimated Timeline
+<realistic development time estimate with range, e.g. "6–9 weeks">
+<explanation of how you arrived at this estimate>
+
+### Delivery Risk Assessment
+<Low / Medium / High / Critical>
+<explanation of delivery risk level based on the data>
+
+### Key Factors Affecting Timeline
+• factor and its impact
+• factor and its impact
+• factor and its impact
+
+### Timeline Optimization Suggestions
+1. specific action to reduce development time
+2. specific action to reduce development time
+3. specific action to reduce development time
+
+### Recommended Launch Plan
+<optimal MVP launch timeline with milestones>
+- Week X: milestone
+- Week X: milestone
+- Week X: milestone
+
+### Strategic Insight
+<one powerful insight about this MVP's delivery trajectory>
+
+Focus on practical, realistic estimates. Be specific about trade-offs between speed and scope.`,
 };
 
 serve(async (req) => {
@@ -164,6 +205,21 @@ Cycle Days: ${data.cycle_days}
 Scope Trim %: ${data.scope_trim_percentage}%
 Total Features: ${data.total_features_initial}
 Trimmed Features: ${data.trimmed_features_count}`;
+    } else if (mode === "timeline") {
+      userMessage = `Estimate the MVP development timeline for this initiative:
+
+Initiative: ${data.initiative_name}
+Description: ${data.description}
+Team Size: ${data.team_size} developers
+Must-Have Features: ${data.must_have_features}
+Total Features: ${data.total_features}
+Technical Complexity: ${data.technical_complexity}/5
+Cycle Score: ${data.cycle_score}/100
+Scope Score: ${data.scope_score}/100
+Health Score: ${data.health_score}/100
+Health Status: ${data.health_status}
+Trimmed Features: ${data.trimmed_features_count}
+Current Cycle Days: ${data.cycle_days}`;
     } else if (mode === "portfolio") {
       const initSummaries = (data.initiatives || [])
         .map(
