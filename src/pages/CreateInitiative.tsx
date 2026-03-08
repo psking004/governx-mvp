@@ -203,10 +203,6 @@ export default function CreateInitiative() {
           </button>
         </form>
 
-        {/* AI Design Assistant */}
-        {form.name && form.description && (
-          <MvpDesignAssistant name={form.name} description={form.description} />
-        )}
       </div>
     </AppLayout>
   );

@@ -229,6 +229,9 @@ export default function InitiativeDetail() {
           scopeTrimPercentage={scope.percentage}
         />
 
+        {/* AI MVP Design Assistant */}
+        <MvpDesignAssistant name={initiative.name} description={initiative.description} />
+
         {/* AI Timeline Estimator */}
         <MvpTimelineEstimator
           initiative={initiative}
