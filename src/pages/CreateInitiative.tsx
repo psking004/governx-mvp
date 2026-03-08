@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { useInitiativeStore } from '@/stores/initiativeStore';
 import { useAuthStore } from '@/stores/authStore';
 import { MvpDesignAssistant } from '@/components/dashboard/MvpDesignAssistant';
-import { ArrowLeft } from 'lucide-react';
+import { calculateValidationScore, ValidationMetrics } from '@/lib/governance';
+import { ArrowLeft, Users, Activity, TrendingUp, ThumbsUp } from 'lucide-react';
 
 export default function CreateInitiative() {
   const navigate = useNavigate();
@@ -18,20 +19,37 @@ export default function CreateInitiative() {
     first_release_at: '',
     total_features_initial: 20,
     trimmed_features_count: 5,
-    validation_score: 70,
     stability_verified: false,
     core_metric_threshold_met: false,
     scalability_path_defined: false,
   });
 
+  const [metrics, setMetrics] = useState<ValidationMetrics>({
+    beta_users: 0,
+    weekly_active_users: 0,
+    user_retention_rate: 0,
+    positive_feedback_percentage: 0,
+  });
+
+  const validationScore = useMemo(() => calculateValidationScore(metrics), [metrics]);
+
   const update = (key: string, value: unknown) => setForm(f => ({ ...f, [key]: value }));
+  const updateMetric = (key: keyof ValidationMetrics, value: number) =>
+    setMetrics(m => ({ ...m, [key]: value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const id = addInitiative({ ...form, created_by: user?.id || 'unknown' });
+    const id = addInitiative({
+      ...form,
+      validation_score: validationScore,
+      validation_metrics: metrics,
+      created_by: user?.id || 'unknown',
+    });
     runEval(id);
     navigate(`/initiatives/${id}`);
   };
+
+  const scoreColor = validationScore >= 70 ? 'text-primary' : validationScore >= 50 ? 'text-governx-amber' : 'text-destructive';
 
   return (
     <AppLayout>
@@ -90,11 +108,77 @@ export default function CreateInitiative() {
             </div>
           </div>
 
-          {/* Validation score */}
-          <div>
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Validation Score (0-100)</label>
-            <input type="number" min={0} max={100} required value={form.validation_score} onChange={e => update('validation_score', +e.target.value)}
-              className="mt-1.5 w-full px-3 py-2.5 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50" />
+          {/* Validation Evidence Metrics */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Validation Evidence</p>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Calculated Score:</span>
+                <span className={`text-lg font-bold ${scoreColor}`}>{validationScore}</span>
+                <span className="text-xs text-muted-foreground">/100</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <Users className="w-3.5 h-3.5 text-primary" />
+                  <label className="text-xs font-medium text-muted-foreground">Beta Users</label>
+                </div>
+                <input type="number" min={0} value={metrics.beta_users} onChange={e => updateMetric('beta_users', +e.target.value)}
+                  className="w-full px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="e.g., 25" />
+                <p className="text-[10px] text-muted-foreground mt-1">Weight: 20% · Target: 50+</p>
+              </div>
+
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <Activity className="w-3.5 h-3.5 text-accent" />
+                  <label className="text-xs font-medium text-muted-foreground">Weekly Active Users</label>
+                </div>
+                <input type="number" min={0} value={metrics.weekly_active_users} onChange={e => updateMetric('weekly_active_users', +e.target.value)}
+                  className="w-full px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="e.g., 60" />
+                <p className="text-[10px] text-muted-foreground mt-1">Weight: 25% · Target: 100+</p>
+              </div>
+
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <TrendingUp className="w-3.5 h-3.5 text-governx-amber" />
+                  <label className="text-xs font-medium text-muted-foreground">User Retention Rate</label>
+                </div>
+                <input type="number" min={0} max={100} value={metrics.user_retention_rate} onChange={e => updateMetric('user_retention_rate', +e.target.value)}
+                  className="w-full px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="e.g., 65%" />
+                <p className="text-[10px] text-muted-foreground mt-1">Weight: 30% · Percentage</p>
+              </div>
+
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <ThumbsUp className="w-3.5 h-3.5 text-primary" />
+                  <label className="text-xs font-medium text-muted-foreground">Positive Feedback %</label>
+                </div>
+                <input type="number" min={0} max={100} value={metrics.positive_feedback_percentage} onChange={e => updateMetric('positive_feedback_percentage', +e.target.value)}
+                  className="w-full px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="e.g., 80%" />
+                <p className="text-[10px] text-muted-foreground mt-1">Weight: 25% · Percentage</p>
+              </div>
+            </div>
+
+            {/* Score breakdown bar */}
+            <div className="h-2 rounded-full bg-secondary overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${validationScore}%`,
+                  background: validationScore >= 70
+                    ? 'hsl(var(--primary))'
+                    : validationScore >= 50
+                    ? 'hsl(var(--governx-amber))'
+                    : 'hsl(var(--destructive))',
+                }}
+              />
+            </div>
           </div>
 
           {/* Booleans */}

@@ -1,5 +1,30 @@
 // GovernX Deterministic Governance Scoring Engine
 
+export interface ValidationMetrics {
+  beta_users: number;
+  weekly_active_users: number;
+  user_retention_rate: number; // 0-100
+  positive_feedback_percentage: number; // 0-100
+}
+
+// Weighted validation score calculation
+// beta_users: 20%, weekly_active_users: 25%, retention: 30%, feedback: 25%
+export function calculateValidationScore(metrics: ValidationMetrics): number {
+  // Normalize beta_users: 0→0, 50+→100
+  const betaScore = Math.min(100, (metrics.beta_users / 50) * 100);
+  // Normalize WAU: 0→0, 100+→100
+  const wauScore = Math.min(100, (metrics.weekly_active_users / 100) * 100);
+  const retentionScore = Math.min(100, Math.max(0, metrics.user_retention_rate));
+  const feedbackScore = Math.min(100, Math.max(0, metrics.positive_feedback_percentage));
+
+  return Math.round(
+    0.20 * betaScore +
+    0.25 * wauScore +
+    0.30 * retentionScore +
+    0.25 * feedbackScore
+  );
+}
+
 export interface Initiative {
   id: string;
   name: string;
@@ -9,6 +34,7 @@ export interface Initiative {
   total_features_initial: number;
   trimmed_features_count: number;
   validation_score: number;
+  validation_metrics: ValidationMetrics;
   stability_verified: boolean;
   core_metric_threshold_met: boolean;
   scalability_path_defined: boolean;
