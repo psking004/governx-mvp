@@ -90,7 +90,6 @@ export default function Dashboard() {
         {/* AI Portfolio Analysis */}
         <PortfolioAnalysis initiatives={initiatives} evaluations={evaluations} />
       </div>
-      </div>
     </AppLayout>
   );
 }
