@@ -17,7 +17,7 @@ export function MobileHeader() {
 
   return (
     <>
-      <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b border-border bg-sidebar/95 backdrop-blur-xl">
+      <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b border-border bg-sidebar/95 backdrop-blur-xl safe-top">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
             <Shield className="w-4 h-4 text-primary-foreground" />
@@ -27,14 +27,14 @@ export function MobileHeader() {
         <div className="flex items-center gap-2">
           <Link
             to="/initiatives/new"
-            className="flex items-center gap-1.5 px-3 py-2 bg-primary text-primary-foreground rounded-lg text-xs font-semibold"
+            className="flex items-center gap-1.5 px-3 py-2.5 bg-primary text-primary-foreground rounded-lg text-xs font-semibold touch-target"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">New</span>
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="p-2 rounded-lg hover:bg-secondary text-foreground transition-colors"
+            className="p-2.5 rounded-lg hover:bg-secondary text-foreground transition-colors touch-target"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
