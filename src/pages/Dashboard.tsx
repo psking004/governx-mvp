@@ -30,7 +30,7 @@ export default function Dashboard() {
 
   return (
     <AppLayout>
-      <div className="space-y-6">
+      <div className="space-y-5 sm:space-y-6">
         {/* Header */}
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-foreground">
@@ -39,8 +39,8 @@ export default function Dashboard() {
           <p className="text-sm text-muted-foreground mt-1">Your governance portfolio overview</p>
         </div>
 
-        {/* Metrics row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {/* Metrics row - 2x2 on mobile/tablet, 4-col on desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <MetricCard label="Initiatives" value={initiatives.length} icon={FolderKanban} variant="seafoam" />
           <MetricCard label="Avg Health" value={avgHealth} subtitle="out of 100" icon={Activity} variant="blue" />
           <MetricCard label="Active Risks" value={totalRisks} icon={AlertTriangle} variant={totalRisks > 0 ? 'amber' : 'default'} />
@@ -50,12 +50,12 @@ export default function Dashboard() {
         {/* Governance Trend Chart - full width */}
         <GovernanceTrendChart initiatives={initiatives} evaluations={evaluations} />
 
-        {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main grid - single col mobile, full 3-col desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
           {/* Left: initiatives */}
           <div className="lg:col-span-2 space-y-4">
             <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Initiative Portfolio</h2>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3">
               {latestEvals.map(({ initiative, evaluation }) => (
                 <InitiativeCard key={initiative.id} initiative={initiative} evaluation={evaluation} />
               ))}
