@@ -205,6 +205,21 @@ Cycle Days: ${data.cycle_days}
 Scope Trim %: ${data.scope_trim_percentage}%
 Total Features: ${data.total_features_initial}
 Trimmed Features: ${data.trimmed_features_count}`;
+    } else if (mode === "timeline") {
+      userMessage = `Estimate the MVP development timeline for this initiative:
+
+Initiative: ${data.initiative_name}
+Description: ${data.description}
+Team Size: ${data.team_size} developers
+Must-Have Features: ${data.must_have_features}
+Total Features: ${data.total_features}
+Technical Complexity: ${data.technical_complexity}/5
+Cycle Score: ${data.cycle_score}/100
+Scope Score: ${data.scope_score}/100
+Health Score: ${data.health_score}/100
+Health Status: ${data.health_status}
+Trimmed Features: ${data.trimmed_features_count}
+Current Cycle Days: ${data.cycle_days}`;
     } else if (mode === "portfolio") {
       const initSummaries = (data.initiatives || [])
         .map(
