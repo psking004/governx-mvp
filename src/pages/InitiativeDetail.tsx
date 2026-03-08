@@ -9,6 +9,7 @@ import { Feature } from '@/lib/governance';
 import { GovernanceAdvisor } from '@/components/dashboard/GovernanceAdvisor';
 import { MvpCoachReport } from '@/components/dashboard/MvpCoachReport';
 import { MvpTimelineEstimator } from '@/components/dashboard/MvpTimelineEstimator';
+import { MvpDesignAssistant } from '@/components/dashboard/MvpDesignAssistant';
 import { ArrowLeft, Trash2, RefreshCw, Plus, Users, Activity, TrendingUp, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
 import { calculateCycleScore, calculateScopeScore } from '@/lib/governance';
@@ -227,6 +228,9 @@ export default function InitiativeDetail() {
           cycleDays={cycle.days}
           scopeTrimPercentage={scope.percentage}
         />
+
+        {/* AI MVP Design Assistant */}
+        <MvpDesignAssistant name={initiative.name} description={initiative.description} />
 
         {/* AI Timeline Estimator */}
         <MvpTimelineEstimator

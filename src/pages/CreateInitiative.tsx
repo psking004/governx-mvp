@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { useInitiativeStore } from '@/stores/initiativeStore';
 import { useAuthStore } from '@/stores/authStore';
-import { MvpDesignAssistant } from '@/components/dashboard/MvpDesignAssistant';
+
 import { calculateValidationScore, ValidationMetrics } from '@/lib/governance';
 import { ArrowLeft, Users, Activity, TrendingUp, ThumbsUp } from 'lucide-react';
 
@@ -203,10 +203,6 @@ export default function CreateInitiative() {
           </button>
         </form>
 
-        {/* AI Design Assistant */}
-        {form.name && form.description && (
-          <MvpDesignAssistant name={form.name} description={form.description} />
-        )}
       </div>
     </AppLayout>
   );
