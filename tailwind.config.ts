@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        governx: {
+          navy: "hsl(var(--governx-navy))",
+          "navy-light": "hsl(var(--governx-navy-light))",
+          seafoam: "hsl(var(--governx-seafoam))",
+          blue: "hsl(var(--governx-blue))",
+          amber: "hsl(var(--governx-amber))",
+          red: "hsl(var(--governx-red))",
+          purple: "hsl(var(--governx-purple))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
